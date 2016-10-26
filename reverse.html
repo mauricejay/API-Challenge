@@ -1,0 +1,81 @@
+<html>
+
+<head>
+</head>
+
+<body>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<div class = "container"> Reversing some string!
+</div>
+<p id = "demo"></p>
+</body>
+
+<script>
+$(document).ready(function(){
+
+  var credentials = {
+    token: "8613d2807617f524de8e29f5d209fb45",
+    github: "https://github.com/mauricejay/API-Challenge"
+  }
+  var endpoint1 =  "http://challenge.code2040.org/api/reverse";
+  // var endpoint2 = "http://challenge.code2040.org/api/reverse/validate";
+  //didn't use endpoint2 ^
+
+  function getString(json, url1){
+    $.ajax({
+      method: "POST",
+      // dataType: "application/json", //ajax call kept failing bc of this
+      url: url1,
+      data: json,
+    })
+    .fail(function(err){
+      // alert("It failed");
+      console.log(err.responseText);
+      // sendBack(revOrder(), credentials);
+    })
+    .always(function(data){
+      // alert("It passed")
+      console.log(data);
+      // document.write(data);
+      sendBack(revOrder(data));
+    })
+
+    function revOrder(stringIn){
+    var newString = "";
+
+    //starts the for loop at the end of the string
+    //decrements to the first letter
+    //appending each character
+    //returns in a variable called newString
+      for(var i = stringIn.length - 1; i >= 0; i--){
+       newString += stringIn[i];
+    }
+      console.log(newString);
+      return newString;
+
+  }//revoRder()
+
+  function sendBack(stringy){
+    $.ajax({
+      method: "POST",
+      url: "http://challenge.code2040.org/api/reverse/validate",
+      data: {token: "8613d2807617f524de8e29f5d209fb45", string: stringy}
+      //tried to pass one variable into the data field similar to my
+      //registration sendBack, but I was unsure of the syntax
+    })
+    .always(function(data){
+      console.log(data.responseText , data.statusText)
+      // document.body.innerText = data.responseText
+      document.write(data.responseText)
+    })
+  }//sendback()
+
+ }//code2040()
+
+getString(credentials, endpoint1)
+
+  }); //end document.ready
+
+  </script>
+  </html>

@@ -1,0 +1,84 @@
+<html>
+<body>
+
+</body>
+
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<div class = "container"> Finding a prefix!
+</div>
+<p id = "demo"></p>
+
+</body>
+<script>
+$(document).ready(function(){
+
+  var myToken = {
+    token : "8613d2807617f524de8e29f5d209fb45"
+  }
+
+  var validate = "http://challenge.code2040.org/api/prefix/validate"
+  //didn't use ^, was attempting to pass validate url and token in
+  //to one var for the sendBack() data field but was unsure how
+
+  function getPrefix(theToken){
+  $.ajax({
+    method: "POST",
+    url: "http://challenge.code2040.org/api/prefix",
+    data: theToken
+  })
+  .done(function(data){
+    console.log(data)
+    // sendBack(findPrefix(data), theToken, validate);
+    sendBack(findPrefix(data));
+  })
+
+
+  function findPrefix(theData){
+
+    var thePrefix = theData.prefix;
+    var theArray = theData.array;
+    var noPrefix = [];
+    console.log(thePrefix)
+
+    // for loop incrementing to the array length
+    //pinpoints the prefix of every string
+    //matches that with the api returned prefix
+    //adds the non-matches to an array
+    for (var i = 0; i < theArray.length; i++){
+      if(!(theArray[i].substring(0,4) == thePrefix)){
+        noPrefix.push(theArray[i])
+      }
+    }
+    console.log(noPrefix);
+    return noPrefix;
+  } //findPrefix()
+
+  function sendBack(noPrefix){
+    $.ajax({
+      method: "POST",
+      url: "http://challenge.code2040.org/api/prefix/validate",
+      // data: {tokenIn, array : newArray}
+      data: {token: "8613d2807617f524de8e29f5d209fb45", array: noPrefix}
+    })
+    .done(function(data){
+      console.log(data.responseText)
+      document.write(data.responseText)
+
+    })
+    .fail(function(err){
+      console.log(err.responseText)
+      document.write(err.responseText)
+    })
+  }//sendback()
+
+
+} //getPrefix()
+  getPrefix(myToken);
+
+
+
+}); //end document.ready
+
+</script>
+</html>

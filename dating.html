@@ -1,0 +1,67 @@
+<html>
+
+<head>
+</head>
+<body>
+
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<div class = "container"> Dating game! </div>
+<p id = "demo"> </p>
+
+</body>
+<script>
+$(document).ready(function(){
+
+var myToken = {token : "8613d2807617f524de8e29f5d209fb45"}
+
+function getDate(theToken){
+  $.ajax({
+    method: "POST",
+    url: "http://challenge.code2040.org/api/dating",
+    data: theToken
+  })
+  .done(function(data){
+    console.log(data)
+    sendBack(addInterval(data))
+  })
+
+  function addInterval(numberIn){
+    var theInterval = numberIn.interval;
+    var datestamp = numberIn.datestamp;
+
+    //takes the datestamp and adds the interval to it
+    //calls setSeconds() method with the new seconds
+    var d = new Date(datestamp);
+    var newSeconds = d.getSeconds() + theInterval;
+    d.setSeconds(newSeconds);
+
+
+    //format was without the milliseconds, (took a while to see this)
+    //so this removes them
+    var newTime = (d.toISOString().split('.')[0]+"Z");
+    console.log(newTime);
+    return newTime;
+  }
+
+  function sendBack(timey){
+    $.ajax({
+      method: "POST",
+      url: "http://challenge.code2040.org/api/dating/validate",
+      data: {token: "8613d2807617f524de8e29f5d209fb45", datestamp: timey}
+    })
+    .fail(function(err){
+      console.log(err)
+    })
+    .done(function(data){
+      console.log(data)
+      document.write(data)
+    })
+  } //sendBack()
+} //getDate()
+
+getDate(myToken);
+
+}); //end document.ready
+</script>
+</html>

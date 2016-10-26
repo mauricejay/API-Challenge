@@ -1,0 +1,55 @@
+<html>
+
+<head>
+</head>
+<body>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+<div class = "container"> Finding a needle in a haystack!
+</div>
+<p id = "demo"> </p>
+</body>
+
+<script>
+$(document).ready(function(){
+
+  var mytoken = {
+    "token": "8613d2807617f524de8e29f5d209fb45"
+}
+
+function getHaystack(theToken){
+  $.ajax({
+    type: "POST",
+    url: "http://challenge.code2040.org/api/haystack",
+    data: theToken
+  }).done(function(data){
+      console.log(data)
+      sendback(locateNeedle(data));
+
+    });
+    //locates the needle in the haystack using indexOf method
+    //returns the location in a variable called locateNeedle
+    function locateNeedle(theNeedle){
+      var located = "";
+      located = theNeedle.haystack.indexOf(theNeedle.needle);
+      return located;
+    } //locateNeedle()
+
+    function sendback(located){
+      $.ajax({
+        type: "POST",
+        url: "http://challenge.code2040.org/api/haystack/validate",
+        data: {token: "8613d2807617f524de8e29f5d209fb45", needle: located}
+      })
+      .done(function(data){
+        console.log(data.responseText)
+      })
+    }//sendback()
+}//getHaystack()
+
+getHaystack(mytoken);
+
+}); //end document.ready()
+
+</script>
+</html>
