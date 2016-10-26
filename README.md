@@ -25,6 +25,8 @@ Setting up a Github repository for a software project makes it easy to keep trac
 
 Make sure your project shows off code for each step of the challenge you complete. If you build an interesting user interface, make sure to include screenshots in your repository’s readme file.
 
+
+
 Step I: Registration
 
 To get started, you’re first going to connect to the registration endpoint. It lives here:
@@ -36,6 +38,8 @@ The registration endpoint expects a JSON dictionary with two keys, token and git
 For token, pass in a string with the token you see above. For github, pass in the URL of the repository you created in the last step.
 
 Hint: HTTP has a few types of “methods.” The registration endpoint is going to be expecting you to use POST to send your JSON.
+
+
 
 Step II: Reverse a string
 
@@ -61,6 +65,8 @@ Use the key string for your reversed string.
 
 Hint: There’s more than one way to skin a cat. However you reverse the string, all that matters to the API is that it’s flipped around accurately. That said, many libraries can do this work for you with very little code. There’s no shame in doing it the easy way—if you can figure out how.
 
+
+
 Step III: Needle in a haystack
 
 Next, let’s check your skills for working with collections.
@@ -82,6 +88,8 @@ Use the key token for your token.
 Use the key needle for the integer representing where the needle was in the array.
 
 Hint: You’ll probably use a loop to solve this one.
+
+
 
 Step IV: Prefix
 
@@ -105,6 +113,8 @@ Use the key array for your array.
 
 Hint: You’ll need a little string-fu to complete this challenge. But rest assured: comparing the beginnings of strings is a common task. Your platform’s standard libraries might even have some code to help you do this.
 
+
+
 Step V: The dating game
 
 Great job so far. The last challenge is a little different. You’re going to work with dates and times.
@@ -127,6 +137,8 @@ Hints:
 
 Make sure your datestamp is formatted the same way as the one the API gives you.
 Dates are hard! Don’t feel badly if you’re scratching your head on this one. Most platforms have libraries to help with date and time tasks. Don’t be afraid of using one to solve this challenge.
+
+
 
 Show your work
 
